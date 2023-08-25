@@ -7,66 +7,61 @@
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
-| name               | string | null: false               |
-| name_kana          | string | null: false               |
-| birthday           | string | null: false               |
+| family_name        | string | null: false               |
+| first_name         | string | null: false               |
+| family_name_kana   | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
   has_many :items
-  has_many :buyers
   has_many :purchases
 
 ## items テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| goods         | string     | null: false                    |
-| product       | text       | null: false                    |
-| category      | string     | null: false                    |
-| condition     | string     | null: false                    |
-| delivery_cost | string     | null: false                    |
-| place         | string     | null: false                    |
-| days_to_ship  | string     | null: false                    |
-| price         | integer    | null: false                    |
-| user          | references | null: false, foreign_key: true |
-
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| goods            | string     | null: false                    |
+| product          | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
+| delivery_cost_id | integer    | null: false                    |
+| place_id         | integer    | null: false                    |
+| days_to_ship_id  | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 
-  has_one :buyers
-  has_one :purchases
-  belongs_to :users
+  has_many :buyers, through: :purchases
+  belongs_to :user
 
 ## buyers テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | post_code     | string     | null: false                    |
-| prefectures   | string     | null: false                    |
+| place_id      | string     | null: false                    |
 | city          | string     | null: false                    |
 | house_number  | string     | null: false                    |
-| building_name | string     | null: false                    |
+| building_name | string     |                                |
 | phone_number  | string     | null: false                    |
-| user          | references | null: false, foreign_key: true |
-| item          | references | null: false, foreign_key: true |
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 
-  has_one :items
-  has_one :purchases
-  belongs_to :users
+  has_many :items, through: :purchases
 
 ## purchases テーブル
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| purchase_status | boolean    | null: false                    |
 | user            | references | null: false, foreign_key: true |
 | item            | references | null: false, foreign_key: true |
 
 ### Association
 
-  has_one :items
-  has_one :buyers
-  belongs_to :users
+  belongs_to :item
+  belongs_to :buyer
+  belongs_to :user
