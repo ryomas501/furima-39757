@@ -52,7 +52,7 @@
 ### Association
 
   belongs_to :purchase
-  belongs_to :buyer
+  belongs_to :item
 
 ## purchases テーブル
 
