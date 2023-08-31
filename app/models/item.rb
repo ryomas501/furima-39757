@@ -6,7 +6,8 @@ class Item < ApplicationRecord
   validates :goods, presence: true
   validates :product, presence: true
   validates :image, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },format: { with: /\A[0-9]+\z/ }
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
+                    format: { with: /\A[0-9]+\z/ }
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -15,8 +16,7 @@ class Item < ApplicationRecord
   belongs_to :place
   belongs_to :daystoship
 
-  with_options numericality: { other_than: 1,message: "can't be blank" } do
-
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
     validates :category_id
     validates :condition_id
     validates :delivery_cost_id
