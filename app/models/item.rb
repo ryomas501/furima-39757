@@ -1,13 +1,12 @@
 class Item < ApplicationRecord
-  has_one :buyer
   belongs_to :user
   has_one_attached :image
 
   validates :goods, presence: true
   validates :product, presence: true
   validates :image, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
-                    format: { with: /\A[0-9]+\z/ }
+  validates :price, presence: true,
+                    numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
