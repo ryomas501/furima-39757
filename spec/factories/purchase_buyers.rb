@@ -8,9 +8,5 @@ FactoryBot.define do
     building_name {"建物"}
     phone_number  {"1234567890"}
 
-
-    association :user_id
-    association :item_id
-    
   end
 end
